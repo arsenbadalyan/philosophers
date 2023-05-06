@@ -21,10 +21,6 @@ SRCS = $(foreach dir, $(SRC_DIR), $(wildcard $(dir)/*.c))
 OBJS = $(subst $(SRC), $(OBJ), $(SRCS:.c=.o))
 LIB_DIR = $(foreach dir, $(LIBS_DIR), $(wildcard $(dir)/*.h))
 
-# Libft
-LIBFT     = ft
-LIBFT_DIR = ../lib$(LIBFT)/
-
 # Colors
 RESET  = \033[0m
 RED    = \033[31m
@@ -37,11 +33,13 @@ all: $(NAME)
 
 bonus: all
 
+run:
+	./philo 5 100 100 100
+
 $(NAME): $(LIB_DIR) Makefile $(OBJS)
 	@make WAIT_COMPILE_MSG
 	@echo "${GREEN}-> Compiling LIBFT...${RESET}"
-	@make -C $(LIBFT_DIR) all
-	@$(GCC) -o $(NAME) $(OBJS) -g $(CFLAGS) $(LIBS) -L$(LIBFT_DIR) -l$(LIBFT) 
+	@$(GCC) -o $(NAME) $(OBJS) -g $(CFLAGS) $(LIBS)
 	@make DONE_MSG
 
 $(OBJ)/%.o: $(SRC)/%.c $(LIB_DIR)
@@ -50,12 +48,9 @@ $(OBJ)/%.o: $(SRC)/%.c $(LIB_DIR)
 	@$(GCC) $(CFLAGS) $(LIBS) -c $< -o $@
 
 clean: DELETE_OBJ_MSG
-	@make -C $(LIBFT_DIR) clean
 	@$(RM) $(OBJ)
 fclean: clean DELETE_PROGRAM_MSG
-	@make -C $(LIBFT_DIR) fclean
 	@$(RM) $(NAME)
-	@$(RM) $(RDLINE)
 re: fclean all
 
 # Helper messages
