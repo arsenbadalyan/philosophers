@@ -26,15 +26,25 @@ typedef struct {
 	pthread_t			*philo;
 	pthread_mutex_t 	*left_fork;
 	pthread_mutex_t 	*right_fork;
-	int					last_meal;
-	int					last_sleep;
+	unsigned int		last_meal;
 }	philo_t;
 
 typedef struct philos_s {
 	pthread_t		*philos;
 	pthread_mutex_t	*forks;
+	pthread_mutex_t	msg;
+	pthread_mutex_t	death;
 	philos_lim_t	*limits;
 	philo_t			*philo_list;
+	unsigned int	eat_lim;
+	int				die_flag;
 }   philos_t;
+
+// Philosophers states
+# define MSG_FORK  "has taken a fork"
+# define MSG_EAT   "is eating"
+# define MSG_SLEEP "is sleeping"
+# define MSG_THINK "is thinking"
+# define MSG_DIE   "died"
 
 #endif

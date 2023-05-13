@@ -10,6 +10,10 @@ int philos_controller(philos_t *philos)
 	while(++i < philos->limits->ph_num)
 		if(pthread_mutex_init(&philos->forks[i], NULL))
 			return (force_quit(E_MUTEX, philos));
+	if(pthread_mutex_init(&philos->msg, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->death, NULL))
+		return (force_quit(E_MUTEX, philos));
 	i = -1;
 	while (++i < philos->limits->ph_num)
 		if (pthread_create(&philos->philos[i], NULL, &start_simulation, (void *)&philos->philo_list[i]))
@@ -18,5 +22,6 @@ int philos_controller(philos_t *philos)
 	while (++i < philos->limits->ph_num)
 		if (pthread_join(philos->philos[i], NULL))
 			return (force_quit(E_JOINTHREAD, philos));
+	free_all_mem(philos);
 	return (EXIT_SUCCESS);
 }

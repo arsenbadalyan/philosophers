@@ -1,7 +1,7 @@
 # Main Variables
 NAME     = philo
 GCC      = cc
-# CFLAGS   = -Wall -Wextra -Werror
+CFLAGS   = -Wall -Wextra -Werror -pthread
 RM       = rm -rf
 OUTPUT   = ./$(NAME)
 LIBS     = -I./includes/
@@ -38,7 +38,6 @@ run:
 
 $(NAME): $(LIB_DIR) Makefile $(OBJS)
 	@make WAIT_COMPILE_MSG
-	@echo "${GREEN}-> Compiling LIBFT...${RESET}"
 	@$(GCC) -o $(NAME) $(OBJS) -g $(CFLAGS) $(LIBS)
 	@make DONE_MSG
 
