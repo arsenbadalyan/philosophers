@@ -18,6 +18,7 @@ int		ft_atoi(const char *str);
 void	ft_putstr_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
+void	ft_usleep(unsigned int ms);
 
 // Helpers
 unsigned int    print_msg(philos_t *philos, philo_t *philo, char *msg, int flag);

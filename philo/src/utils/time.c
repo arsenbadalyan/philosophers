@@ -30,5 +30,5 @@ unsigned int get_cur_time()
 
 void ms_sleep(unsigned int time)
 {
-    usleep(time * 1000);
+    ft_usleep(time);
 }

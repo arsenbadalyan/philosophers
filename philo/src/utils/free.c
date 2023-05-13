@@ -46,6 +46,9 @@ void *free_all_mem(philos_t *philos)
 	i = -1;
 	while(++i < philos->limits->ph_num)
 		pthread_mutex_destroy(&philos->forks[i]);
+	pthread_mutex_destroy(&philos->death_flag);
+	pthread_mutex_destroy(&philos->death);
+	pthread_mutex_destroy(&philos->msg);
 	free_single((void *)&(philos->limits));
 	free_single((void *)&(philos->philo_list));
 	free_single((void *)&(philos->philos));

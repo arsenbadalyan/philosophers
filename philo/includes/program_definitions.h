@@ -56,6 +56,7 @@ typedef struct philos_s {
 	pthread_mutex_t	msg;
 	pthread_mutex_t	death;
 	pthread_mutex_t	death_flag;
+	pthread_mutex_t	death_flag_change;
 	philos_lim_t	*limits;
 	philo_t			*philo_list;
 	unsigned int	eat_lim;
