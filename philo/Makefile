@@ -1,7 +1,7 @@
 # Main Variables
 NAME     = philo
-GCC      = cc
-CFLAGS   = -Wall -Wextra -Werror -pthread
+GCC      = gcc
+CFLAGS   = -Wall -Wextra -Werror -g3 -fsanitize=thread
 RM       = rm -rf
 OUTPUT   = ./$(NAME)
 LIBS     = -I./includes/
@@ -38,7 +38,7 @@ run:
 
 $(NAME): $(LIB_DIR) Makefile $(OBJS)
 	@make WAIT_COMPILE_MSG
-	@$(GCC) -o $(NAME) $(OBJS) -g $(CFLAGS) $(LIBS)
+	@$(GCC) -o $(NAME) $(OBJS) $(CFLAGS) $(LIBS)
 	@make DONE_MSG
 
 $(OBJ)/%.o: $(SRC)/%.c $(LIB_DIR)

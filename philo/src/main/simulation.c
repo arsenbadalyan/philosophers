@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   simulation.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/05/13 15:08:46 by arsbadal          #+#    #+#             */
+/*   Updated: 2023/05/13 15:08:47 by arsbadal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 int check_death(philos_t *philos, philo_t *philo)
@@ -55,9 +67,7 @@ void *start_simulation(void *arg)
 	if(philo->id % 2)
 		ms_sleep(philos->limits->time_to_eat);
 	while(!philos->die_flag)
-	{
 		philo_eat(philos, philo);
-	}
 	return (NULL);
 }
 

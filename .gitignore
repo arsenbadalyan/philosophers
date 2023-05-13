@@ -2,3 +2,5 @@
 obj
 *.o
 .vscode
+philo
+philo_bonus
