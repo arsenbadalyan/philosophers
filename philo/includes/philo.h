@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:02 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:02 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:16:05 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int philos_controller(philos_t *philos);
 
 // Simulation
 void *start_simulation(void *arg);
+int die_add(philos_t *philos);
 
 // Initialize
 philos_t *init_philos_t();

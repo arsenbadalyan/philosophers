@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:10 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:11 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:40:05 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,11 @@ int philos_controller(philos_t *philos)
 	while(++i < philos->limits->ph_num)
 		if(pthread_mutex_init(&philos->forks[i], NULL))
 			return (force_quit(E_MUTEX, philos));
-	if(pthread_mutex_init(&philos->msg, NULL))
+	if (pthread_mutex_init(&philos->msg, NULL))
 		return (force_quit(E_MUTEX, philos));
 	if (pthread_mutex_init(&philos->death, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->death_flag, NULL))
 		return (force_quit(E_MUTEX, philos));
 	i = -1;
 	while (++i < philos->limits->ph_num)

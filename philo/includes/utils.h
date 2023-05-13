@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:07 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:08 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/13 15:28:58 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_putnbr_fd(int n, int fd);
 void	ft_putchar_fd(char c, int fd);
 
 // Helpers
-unsigned int    print_msg(philos_t *philos, philo_t *philo, char *msg);
+unsigned int    print_msg(philos_t *philos, philo_t *philo, char *msg, int flag);
 void            print_death_msg(philos_t *philos, philo_t *philo, unsigned int time);
 
 // Error handling

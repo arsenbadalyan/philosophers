@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:08:46 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:08:47 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:39:12 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int check_death(philos_t *philos, philo_t *philo)
 	time = get_cur_time();
 	if((time - philo->last_meal) > (unsigned int)philos->limits->time_to_die + 10)
 	{
-		philos->die_flag++;
+		die_add(philos);
 		print_death_msg(philos, philo, time);
 	}
 	pthread_mutex_unlock(&philos->death);
@@ -30,19 +30,18 @@ int check_death(philos_t *philos, philo_t *philo)
 
 void philo_sleep(philos_t *philos, philo_t *philo)
 {
-	print_msg(philos, philo, MSG_SLEEP);
+	print_msg(philos, philo, MSG_SLEEP, FLG_SLEEP);
 	ms_sleep(philos->limits->time_to_sleep);
-	print_msg(philos, philo, MSG_THINK);
+	print_msg(philos, philo, MSG_THINK, FLG_THINK);
 }
 
 void philo_eat(philos_t *philos, philo_t *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
-	print_msg(philos, philo, MSG_FORK);
+	print_msg(philos, philo, MSG_FORK, FLG_FORK);
 	check_death(philos, philo);
-	philos->eat_lim++;
-	philo->last_meal = print_msg(philos, philo, MSG_EAT);
+	philo->last_meal = print_msg(philos, philo, MSG_EAT, FLG_EAT);
 	ms_sleep(philos->limits->time_to_eat);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
@@ -58,16 +57,25 @@ void *start_simulation(void *arg)
 	philos = philo->philos;
 	if(philos->limits->ph_num == 1)
 	{
-		print_msg(philos, philo, MSG_FORK);
+		print_msg(philos, philo, MSG_FORK, FLG_FORK);
 		ms_sleep(philos->limits->time_to_eat);
-		philos->die_flag++;
+		die_add(philos);
 		print_death_msg(philos, philo, get_cur_time());
 		return (NULL);
 	}
 	if(philo->id % 2)
 		ms_sleep(philos->limits->time_to_eat);
-	while(!philos->die_flag)
+	while(1)
+	{
 		philo_eat(philos, philo);
+		pthread_mutex_lock(&philos->death_flag);
+		if(philos->die_flag)
+		{
+			pthread_mutex_unlock(&philos->death_flag);	
+			return (NULL);
+		}
+		pthread_mutex_unlock(&philos->death_flag);
+	}
 	return (NULL);
 }
 

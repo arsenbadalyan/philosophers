@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:04 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:05 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/13 16:07:27 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,15 @@ enum {
 	E_MUTEX,
 	E_THREAD,
 	E_JOINTHREAD
+};
+
+// Philo actions
+enum {
+	FLG_EAT,
+	FLG_FORK,
+	FLG_SLEEP,
+	FLG_DIE,
+	FLG_THINK	
 };
 
 // Philo Structures Defining
@@ -46,6 +55,7 @@ typedef struct philos_s {
 	pthread_mutex_t	*forks;
 	pthread_mutex_t	msg;
 	pthread_mutex_t	death;
+	pthread_mutex_t	death_flag;
 	philos_lim_t	*limits;
 	philo_t			*philo_list;
 	unsigned int	eat_lim;
