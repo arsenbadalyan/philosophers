@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void *free_single(void **addr)
+void	*free_single(void **addr)
 {
 	if (*addr)
 	{
@@ -22,9 +22,9 @@ void *free_single(void **addr)
 	return (0);
 }
 
-void *free_double(void ***addr)
+void	*free_double(void ***addr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (*addr)
@@ -39,12 +39,12 @@ void *free_double(void ***addr)
 	return (0);
 }
 
-void *free_all_mem(philos_t *philos)
+void	*free_all_mem(philos_t *philos)
 {
 	int	i;
 
 	i = -1;
-	while(++i < philos->limits->ph_num)
+	while (++i < philos->limits->ph_num)
 		pthread_mutex_destroy(&philos->forks[i]);
 	pthread_mutex_destroy(&philos->death_flag);
 	pthread_mutex_destroy(&philos->death);

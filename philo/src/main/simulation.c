@@ -12,14 +12,14 @@
 
 #include "philo.h"
 
-int check_death(philos_t *philos, philo_t *philo)
+int	check_death(philos_t *philos, philo_t *philo)
 {
-	unsigned int time;
+	unsigned int	time;
 
 	time = 0;
 	pthread_mutex_lock(&philos->death);
 	time = get_cur_time();
-	if((time - philo->last_meal) > (unsigned int)philos->limits->time_to_die + 10)
+	if ((time - philo->last_meal) > (unsigned int)philos->limits->time_to_die)
 	{
 		die_add(philos);
 		print_death_msg(philos, philo, time);
@@ -28,14 +28,14 @@ int check_death(philos_t *philos, philo_t *philo)
 	return (0);
 }
 
-void philo_sleep(philos_t *philos, philo_t *philo)
+void	philo_sleep(philos_t *philos, philo_t *philo)
 {
 	print_msg(philos, philo, MSG_SLEEP, FLG_SLEEP);
 	ms_sleep(philos->limits->time_to_sleep);
 	print_msg(philos, philo, MSG_THINK, FLG_THINK);
 }
 
-void philo_eat(philos_t *philos, philo_t *philo)
+void	philo_eat(philos_t *philos, philo_t *philo)
 {
 	pthread_mutex_lock(philo->left_fork);
 	pthread_mutex_lock(philo->right_fork);
@@ -48,35 +48,38 @@ void philo_eat(philos_t *philos, philo_t *philo)
 	philo_sleep(philos, philo);
 }
 
-void *start_simulation(void *arg)
+void	one_philo_action(philos_t *philos, philo_t *philo)
+{
+	print_msg(philos, philo, MSG_FORK, FLG_FORK);
+	ms_sleep(philos->limits->time_to_die);
+	die_add(philos);
+	print_death_msg(philos, philo, get_cur_time());
+}
+
+void	*start_simulation(void *arg)
 {
 	philo_t		*philo;
 	philos_t	*philos;
 
 	philo = (philo_t *)arg;
 	philos = philo->philos;
-	if(philos->limits->ph_num == 1)
+	if (philos->limits->ph_num == 1)
 	{
-		print_msg(philos, philo, MSG_FORK, FLG_FORK);
-		ms_sleep(philos->limits->time_to_eat);
-		die_add(philos);
-		print_death_msg(philos, philo, get_cur_time());
+		one_philo_action(philos, philo);
 		return (NULL);
 	}
-	if(philo->id % 2)
+	if (philo->id % 2)
 		ms_sleep(philos->limits->time_to_eat);
-	while(1)
+	while (1)
 	{
 		philo_eat(philos, philo);
 		pthread_mutex_lock(&philos->death_flag);
-		if(philos->die_flag)
+		if (philos->die_flag)
 		{
-			pthread_mutex_unlock(&philos->death_flag);	
+			pthread_mutex_unlock(&philos->death_flag);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philos->death_flag);
 	}
 	return (NULL);
 }
-
-// -g3 -fsanitize=thread

@@ -11,29 +11,37 @@
 /* ************************************************************************** */
 
 #ifndef PHILO_H
-#define PHILO_H
+# define PHILO_H
 
-#include <unistd.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <pthread.h>
-#include <sys/time.h>
-#include <sys/types.h>
-#include "program_definitions.h"
-#include "utils.h"
+# include <unistd.h>
+# include <stdio.h>
+# include <stdlib.h>
+# include <string.h>
+# include <pthread.h>
+# include <semaphore.h>
+# include <fcntl.h>
+# include <signal.h>
+# include <sys/time.h>
+# include <sys/types.h>
+# include <limits.h>
+# include "program_definitions.h"
+# include "utils.h"
 
-// Controller
-int parse_controller(int argc, char **argv, philos_t *philos);
-int philos_controller(philos_t *philos);
+// Main Controller
+int			philos_controller(philos_t *philos);
+
+// Parser
+int			parse_controller(char **argv, philos_t *philos);
+char		*check_zeros(char *number);
+int			check(char *str);
 
 // Simulation
-void *start_simulation(void *arg);
-int die_add(philos_t *philos);
+void		*start_simulation(void *arg);
+int			die_add(philos_t *philos);
 
 // Initialize
-philos_t *init_philos_t();
-void *init_pthread_mutex(philos_t *philos);
-philo_t *init_philo_list(philos_t *philos, int ph_num);
+philos_t	*init_philos_t(void);
+void		*init_pthread_mutex(philos_t *philos);
+philo_t		*init_philo_list(philos_t *philos, int ph_num);
 
 #endif
