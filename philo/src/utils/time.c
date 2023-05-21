@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:33 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:34 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/21 03:11:56 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	ft_usleep(unsigned int ms)
 	gettimeofday(&now, NULL);
 	gettimeofday(&start, NULL);
 	while ((now.tv_sec - start.tv_sec) * 1000
-		+ (now.tv_usec - start.tv_usec) / 1000 < ms)
+		+ (now.tv_usec - start.tv_usec) / 1000 <= ms)
 	{
 		usleep(10);
 		gettimeofday(&now, NULL);

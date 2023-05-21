@@ -31,9 +31,6 @@ BLUE   = \033[34m
 all: $(NAME)
 	@echo > /dev/null
 
-run:
-	./philo 5 100 100 100
-
 $(NAME): $(LIB_DIR) Makefile $(OBJS)
 	@make WAIT_COMPILE_MSG
 	@$(GCC) -o $(NAME) $(OBJS) $(CFLAGS) $(LIBS)

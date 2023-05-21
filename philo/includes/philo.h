@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:02 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 17:16:05 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 20:12:14 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,24 +24,28 @@
 # include <sys/time.h>
 # include <sys/types.h>
 # include <limits.h>
-# include "program_definitions.h"
+# include "program_definations.h"
 # include "utils.h"
 
 // Main Controller
-int			philos_controller(philos_t *philos);
+int			philos_controller(t_philos *philos);
 
 // Parser
-int			parse_controller(char **argv, philos_t *philos);
+int			parse_controller(char **argv, t_philos *philos);
 char		*check_zeros(char *number);
 int			check(char *str);
 
 // Simulation
 void		*start_simulation(void *arg);
-int			die_add(philos_t *philos);
+void		philo_eat(t_philos *philos, t_philo *philo);
+void		philo_sleep(t_philos *philos, t_philo *philo);
+int			die_add(t_philos *philos);
+int			check_eat_lim(t_philos *philos, t_philo *philo);
+int			check_death(t_philos *philos, t_philo *philo);
 
 // Initialize
-philos_t	*init_philos_t(void);
-void		*init_pthread_mutex(philos_t *philos);
-philo_t		*init_philo_list(philos_t *philos, int ph_num);
+t_philos	*init_t_philos(void);
+void		*init_pthread_mutex(t_philos *philos);
+t_philo		*init_philo_list(t_philos *philos, int ph_num);
 
 #endif

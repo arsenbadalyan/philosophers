@@ -6,13 +6,13 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:20 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:21 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*mem_issue(philos_t *philos)
+void	*mem_issue(t_philos *philos)
 {
 	ft_putstr_fd("Sorry you have memory issue, \
 		please fix it and come back :)\n", 2);
@@ -20,7 +20,7 @@ void	*mem_issue(philos_t *philos)
 	return (NULL);
 }
 
-int	force_quit(int errno, philos_t *philos)
+int	force_quit(int errno, t_philos *philos)
 {
 	if (errno == E_NEGNUM)
 		ft_putstr_fd("Please write correct arguments, \

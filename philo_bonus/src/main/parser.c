@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:15 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:16 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	check(char *str)
 	return (atoi_check);
 }
 
-int	parse_controller(char **argv, philos_t *philos)
+int	parse_controller(char **argv, t_philos *philos)
 {
 	size_t	i;
 

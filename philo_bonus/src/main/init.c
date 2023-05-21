@@ -6,38 +6,38 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:13 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:14 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-philos_t	*init_philos_t(void)
+t_philos	*init_t_philos(void)
 {
-	philos_t	*philos;
+	t_philos	*philos;
 
-	philos = (philos_t *)malloc(sizeof(philos_t));
+	philos = (t_philos *)malloc(sizeof(t_philos));
 	if (!philos)
 		return (mem_issue(philos));
 	philos->forks = NULL;
 	philos->msg = NULL;
 	philos->finish = NULL;
 	philos->philo_list = NULL;
-	philos->limits = (philos_lim_t *)malloc(sizeof(philos_lim_t));
+	philos->limits = (t_philos_lim *)malloc(sizeof(t_philos_lim));
 	if (!philos->limits)
 		return (mem_issue(philos));
 	philos->die_flag = 0;
 	return (philos);
 }
 
-philo_t	*init_philo_list(philos_t *philos, int ph_num)
+t_philo	*init_philo_list(t_philos *philos, int ph_num)
 {
-	philo_t	*philo_list;
+	t_philo	*philo_list;
 	int		i;
 
 	i = 0;
 	(void)philos;
-	philo_list = (philo_t *)malloc(sizeof(philo_t) * ph_num);
+	philo_list = (t_philo *)malloc(sizeof(t_philo) * ph_num);
 	if (!philo_list)
 		return (NULL);
 	while (i < ph_num)

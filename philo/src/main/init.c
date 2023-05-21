@@ -6,42 +6,43 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:13 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:14 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/21 02:51:42 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-philos_t	*init_philos_t(void)
+t_philos	*init_t_philos(void)
 {
-	philos_t	*philos;
+	t_philos	*philos;
 
-	philos = (philos_t *)malloc(sizeof(philos_t));
+	philos = (t_philos *)malloc(sizeof(t_philos));
 	if (!philos)
 		return (mem_issue(philos));
 	philos->philos = NULL;
 	philos->forks = NULL;
 	philos->philo_list = NULL;
-	philos->limits = (philos_lim_t *)malloc(sizeof(philos_lim_t));
+	philos->eat = 0;
+	philos->limits = (t_philos_lim *)malloc(sizeof(t_philos_lim));
 	if (!philos->limits)
 		return (mem_issue(philos));
 	philos->die_flag = 0;
-	philos->eat_lim = 0;
 	return (philos);
 }
 
-philo_t	*init_philo_list(philos_t *philos, int ph_num)
+t_philo	*init_philo_list(t_philos *philos, int ph_num)
 {
 	int		i;
-	philo_t	*philo_list;
+	t_philo	*philo_list;
 
 	i = -1;
-	philo_list = (philo_t *)malloc(sizeof(philo_t) * ph_num);
+	philo_list = (t_philo *)malloc(sizeof(t_philo) * ph_num);
 	if (!philo_list)
 		return (NULL);
 	while (++i < ph_num)
 	{
 		philo_list[i].id = i;
+		philo_list[i].already_eat = 0;
 		philo_list[i].philos = philos;
 		philo_list[i].philo = &philos->philos[i];
 		philo_list[i].left_fork = &philos->forks[(i + 1) % ph_num];
@@ -51,7 +52,7 @@ philo_t	*init_philo_list(philos_t *philos, int ph_num)
 	return (philo_list);
 }
 
-void	*init_pthread_mutex(philos_t *philos)
+void	*init_pthread_mutex(t_philos *philos)
 {
 	int	ph_num;
 

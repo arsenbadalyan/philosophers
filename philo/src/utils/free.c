@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:26 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:27 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 21:07:20 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*free_double(void ***addr)
 	return (0);
 }
 
-void	*free_all_mem(philos_t *philos)
+void	*free_all_mem(t_philos *philos)
 {
 	int	i;
 
@@ -49,6 +49,8 @@ void	*free_all_mem(philos_t *philos)
 	pthread_mutex_destroy(&philos->death_flag);
 	pthread_mutex_destroy(&philos->death);
 	pthread_mutex_destroy(&philos->msg);
+	pthread_mutex_destroy(&philos->last_meal);
+	pthread_mutex_destroy(&philos->death_flag_change);
 	free_single((void *)&(philos->limits));
 	free_single((void *)&(philos->philo_list));
 	free_single((void *)&(philos->philos));

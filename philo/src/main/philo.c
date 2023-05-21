@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:08:44 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:08:44 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	main(int argc, char **argv)
 {
-	philos_t	*philos;
+	t_philos	*philos;
 
 	if (argc < 5 || argc > 6)
 		return (force_quit(E_ARGSUM, NULL));
-	philos = init_philos_t();
+	philos = init_t_philos();
 	if (!philos)
 		return (EXIT_FAILURE);
 	if (parse_controller(argv, philos))

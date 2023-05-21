@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:15 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 15:09:16 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 22:14:28 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ int	check(char *str)
 	return (atoi_check);
 }
 
-int	parse_controller(char **argv, philos_t *philos)
+int	parse_controller(char **argv, t_philos *philos)
 {
 	size_t	i;
 
 	i = 1;
 	philos->limits->ph_num = check(argv[i++]);
+	philos->limits->ph_num_die = philos->limits->ph_num;
 	philos->limits->time_to_die = check(argv[i++]);
 	philos->limits->time_to_eat = check(argv[i++]);
 	philos->limits->time_to_sleep = check(argv[i++]);
@@ -67,7 +68,6 @@ int	parse_controller(char **argv, philos_t *philos)
 		philos->limits->eat_lim = check(argv[i++]);
 		if (philos->limits->eat_lim < 0)
 			return (force_quit(E_NEGNUM, philos));
-		philos->limits->eat_lim *= philos->limits->ph_num;
 	}
 	if (philos->limits->ph_num < 0 || philos->limits->time_to_die < 0
 		|| philos->limits->time_to_eat < 0 || philos->limits->time_to_sleep < 0)

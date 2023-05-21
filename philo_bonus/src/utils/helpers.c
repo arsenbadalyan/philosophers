@@ -6,13 +6,13 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:08:41 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 17:38:57 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 20:48:14 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-unsigned int	print_msg(philos_t *philos, philo_t *philo, char *msg, int flag)
+unsigned int	print_msg(t_philos *philos, t_philo *philo, char *msg, int flag)
 {
 	unsigned int	time;
 
@@ -33,7 +33,7 @@ unsigned int	print_msg(philos_t *philos, philo_t *philo, char *msg, int flag)
 	return (time);
 }
 
-void	print_death_msg(philos_t *philos, philo_t *philo, unsigned int time)
+void	print_death_msg(t_philos *philos, t_philo *philo, unsigned int time)
 {
 	sem_wait(philos->msg);
 	if (philos->die_flag)
@@ -51,7 +51,7 @@ void	ft_usleep(unsigned int ms)
 	gettimeofday(&now, NULL);
 	gettimeofday(&start, NULL);
 	while ((now.tv_sec - start.tv_sec) * 1000
-		+ (now.tv_usec - start.tv_usec) / 1000 < ms)
+		+ (now.tv_usec - start.tv_usec) / 1000 <= ms)
 	{
 		usleep(10);
 		gettimeofday(&now, NULL);

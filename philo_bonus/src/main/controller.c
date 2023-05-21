@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:10 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/13 16:40:05 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 void	*wait_eat(void *arg)
 {
 	int			i;
-	philos_t	*philos;
+	t_philos	*philos;
 
 	i = 0;
-	philos = (philos_t *)arg;
+	philos = (t_philos *)arg;
 	while (i < (int)philos->limits->ph_num)
 	{
 		waitpid(philos->philo_list[i].pid, NULL, 0);
@@ -28,7 +28,7 @@ void	*wait_eat(void *arg)
 	return (NULL);
 }
 
-void	wait_any_action(philos_t *philos)
+void	wait_any_action(t_philos *philos)
 {
 	pthread_t	*thread;
 	int			i;
@@ -49,7 +49,7 @@ void	wait_any_action(philos_t *philos)
 	}
 }
 
-void	make_processes(philos_t *philos)
+void	make_processes(t_philos *philos)
 {
 	int	i;
 
@@ -71,7 +71,7 @@ void	make_processes(philos_t *philos)
 	wait_any_action(philos);
 }
 
-int	philos_controller(philos_t *philos)
+int	philos_controller(t_philos *philos)
 {
 	philos->philo_list = init_philo_list(philos, philos->limits->ph_num);
 	if (!philos->philo_list)
