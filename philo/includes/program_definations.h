@@ -51,7 +51,7 @@ typedef struct philos_lim_s {
 
 typedef struct philo_s {
 	int					id;
-	int					already_eat;
+	int					already_eaten;
 	struct philos_s		*philos;
 	pthread_t			*philo;
 	pthread_mutex_t		*left_fork;
@@ -67,10 +67,11 @@ typedef struct philos_s {
 	pthread_mutex_t	death_flag;
 	pthread_mutex_t	death_flag_change;
 	pthread_mutex_t	last_meal;
+	pthread_mutex_t	finish;
 	t_philos_lim	*limits;
 	t_philo			*philo_list;
-	int				die_flag;
-	int				eat;
+	int				is_dead;
+	int				already_eaten;
 }	t_philos;
 
 #endif

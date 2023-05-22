@@ -39,13 +39,20 @@ int			check(char *str);
 void		*start_simulation(void *arg);
 void		philo_eat(t_philos *philos, t_philo *philo);
 void		philo_sleep(t_philos *philos, t_philo *philo);
-int			die_add(t_philos *philos);
 int			check_eat_lim(t_philos *philos, t_philo *philo);
 int			check_death(t_philos *philos, t_philo *philo);
+
+// Checkers
+int			is_eaten_or_dead(t_philos *philos);
+int			is_global_eaten(t_philos *philos, t_philo *philo);
+int			is_dead(t_philos *philos);
+void		iterate_philo_eaten(t_philos *philos, t_philo *philo);
+void		iterate_dead(t_philos *philos);
 
 // Initialize
 t_philos	*init_t_philos(void);
 void		*init_pthread_mutex(t_philos *philos);
 t_philo		*init_philo_list(t_philos *philos, int ph_num);
+int			init_all_mutexes(t_philos *philos);
 
 #endif

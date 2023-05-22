@@ -22,11 +22,11 @@ t_philos	*init_t_philos(void)
 	philos->philos = NULL;
 	philos->forks = NULL;
 	philos->philo_list = NULL;
-	philos->eat = 0;
+	philos->already_eaten = 0;
 	philos->limits = (t_philos_lim *)malloc(sizeof(t_philos_lim));
 	if (!philos->limits)
 		return (mem_issue(philos));
-	philos->die_flag = 0;
+	philos->is_dead = 0;
 	return (philos);
 }
 
@@ -42,7 +42,7 @@ t_philo	*init_philo_list(t_philos *philos, int ph_num)
 	while (++i < ph_num)
 	{
 		philo_list[i].id = i;
-		philo_list[i].already_eat = 0;
+		philo_list[i].already_eaten = 0;
 		philo_list[i].philos = philos;
 		philo_list[i].philo = &philos->philos[i];
 		philo_list[i].left_fork = &philos->forks[(i + 1) % ph_num];
@@ -67,4 +67,25 @@ void	*init_pthread_mutex(t_philos *philos)
 	if (!philos->philo_list)
 		return (mem_issue(philos));
 	return (philos);
+}
+
+int	init_all_mutexes(t_philos *philos)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philos->limits->ph_num)
+		if (pthread_mutex_init(&philos->forks[i], NULL))
+			return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->msg, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->death, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->death_flag, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->last_meal, NULL))
+		return (force_quit(E_MUTEX, philos));
+	if (pthread_mutex_init(&philos->finish, NULL))
+		return (force_quit(E_MUTEX, philos));
+	return (EXIT_SUCCESS);
 }

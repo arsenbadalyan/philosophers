@@ -17,50 +17,37 @@ unsigned int	print_msg(t_philos *philos, t_philo *philo,
 {
 	unsigned int	time;
 
-	pthread_mutex_lock(&philos->msg);
-	pthread_mutex_lock(&philos->death_flag);
 	time = get_cur_time();
-	if (flag == FLG_EAT)
-		philo->already_eat++;
-	if (!philos->die_flag)
+	if (!is_dead(philos))
+	{
+		pthread_mutex_lock(&philos->msg);
 		printf("%u %i %s\n", time, (philo->id + 1), msg);
-	pthread_mutex_unlock(&philos->death_flag);
-	pthread_mutex_unlock(&philos->msg);
+		pthread_mutex_unlock(&philos->msg);
+	}
+	if (flag == FLG_EAT)
+	{
+		pthread_mutex_lock(&philos->last_meal);
+		philo->last_meal = time;
+		pthread_mutex_unlock(&philos->last_meal);
+		iterate_philo_eaten(philos, philo);
+	}
 	return (time);
 }
 
 void	print_death_msg(t_philos *philos, t_philo *philo, unsigned int time)
 {
 	pthread_mutex_lock(&philos->msg);
-	pthread_mutex_lock(&philos->death_flag);
-	if (philos->die_flag == 1)
+	if (!is_dead(philos))
 		printf("%u %i %s\n", time, (philo->id + 1), MSG_DIE);
-	pthread_mutex_unlock(&philos->death_flag);
+	iterate_dead(philos);
 	pthread_mutex_unlock(&philos->msg);
-}
-
-int	die_add(t_philos *philos)
-{
-	pthread_mutex_lock(&philos->death_flag);
-	philos->die_flag++;
-	pthread_mutex_unlock(&philos->death_flag);
-	return (philos->die_flag);
 }
 
 int	check_eat_lim(t_philos *philos, t_philo *philo)
 {
 	philo_eat(philos, philo);
-	pthread_mutex_lock(&philos->death_flag);
-	if (philos->limits->eat_lim != -1
-		&& philos->limits->eat_lim == philo->already_eat)
-	{
-		pthread_mutex_lock(&philos->death);
-		philos->eat++;
-		pthread_mutex_unlock(&philos->death);
-		pthread_mutex_unlock(&philos->death_flag);
-		return (1);
-	}
-	pthread_mutex_unlock(&philos->death_flag);
+	if (is_global_eaten(philos, philo))
+		return (EXIT_FAILURE);
 	philo_sleep(philos, philo);
-	return (0);
+	return (EXIT_SUCCESS);
 }
