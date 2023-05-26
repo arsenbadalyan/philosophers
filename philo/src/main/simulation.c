@@ -52,7 +52,7 @@ void	*start_simulation(void *arg)
 		return (NULL);
 	}
 	if (philo->id % 2)
-		ms_sleep(10);
+		ms_sleep(philos->limits->time_to_eat);
 	while (1)
 	{
 		if (check_eat_lim(philos, philo))

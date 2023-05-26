@@ -29,22 +29,16 @@ unsigned int	get_cur_time(void)
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - start);
 }
 
-void	ft_usleep(unsigned int ms)
+void	ms_sleep(unsigned int ms)
 {
-	struct timeval	now;
-	struct timeval	start;
+	struct timeval now;
+	struct timeval start;
 
 	gettimeofday(&now, NULL);
 	gettimeofday(&start, NULL);
-	while ((now.tv_sec - start.tv_sec) * 1000
-		+ (now.tv_usec - start.tv_usec) / 1000 <= ms)
+	while ((now.tv_sec - start.tv_sec) * 1000 + (now.tv_usec - start.tv_usec) / 1000 < ms)
 	{
 		usleep(10);
 		gettimeofday(&now, NULL);
 	}
-}
-
-void	ms_sleep(unsigned int time)
-{
-	ft_usleep(time);
 }

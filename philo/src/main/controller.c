@@ -18,7 +18,6 @@ int	check_death(t_philos *philos, t_philo *philo)
 	unsigned int	time;
 
 	status = EXIT_SUCCESS;
-	pthread_mutex_lock(&philos->death);
 	if (is_eaten_or_dead(philos))
 		status = EXIT_FAILURE;
 	pthread_mutex_lock(&philos->last_meal);
@@ -30,7 +29,6 @@ int	check_death(t_philos *philos, t_philo *philo)
 		status = EXIT_FAILURE;
 	}
 	pthread_mutex_unlock(&philos->last_meal);
-	pthread_mutex_unlock(&philos->death);
 	return (status);
 }
 

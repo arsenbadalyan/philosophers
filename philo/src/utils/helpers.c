@@ -18,12 +18,6 @@ unsigned int	print_msg(t_philos *philos, t_philo *philo,
 	unsigned int	time;
 
 	time = get_cur_time();
-	if (!is_dead(philos))
-	{
-		pthread_mutex_lock(&philos->msg);
-		printf("%u %i %s\n", time, (philo->id + 1), msg);
-		pthread_mutex_unlock(&philos->msg);
-	}
 	if (flag == FLG_EAT)
 	{
 		pthread_mutex_lock(&philos->last_meal);
@@ -31,6 +25,10 @@ unsigned int	print_msg(t_philos *philos, t_philo *philo,
 		pthread_mutex_unlock(&philos->last_meal);
 		iterate_philo_eaten(philos, philo);
 	}
+	pthread_mutex_lock(&philos->msg);
+	if (!is_dead(philos))
+		printf("%u %i %s\n", time, (philo->id + 1), msg);
+	pthread_mutex_unlock(&philos->msg);
 	return (time);
 }
 
@@ -38,8 +36,10 @@ void	print_death_msg(t_philos *philos, t_philo *philo, unsigned int time)
 {
 	pthread_mutex_lock(&philos->msg);
 	if (!is_dead(philos))
+	{
 		printf("%u %i %s\n", time, (philo->id + 1), MSG_DIE);
-	iterate_dead(philos);
+		iterate_dead(philos);
+	}
 	pthread_mutex_unlock(&philos->msg);
 }
 
