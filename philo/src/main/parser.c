@@ -6,11 +6,9 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:15 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/20 22:14:28 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 13:51:32 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "philo.h"
 
 #include "philo.h"
 

@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:04 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/20 20:50:49 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:41:43 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define SEMAPHORE_NAME "/philo_semaphore"
 # define MSG_SEMAPHORE "/philo_semaphore_msg"
 # define FINISH_SEMAPHORE "/philo_semaphore_finish"
+# define LAST_MEAL_SEMAPHORE "/philo_last_meal"
 
 // Philosophers states
 # define MSG_FORK  "has taken a fork"
@@ -53,16 +54,18 @@ typedef struct philos_lim_s {
 }	t_philos_lim;
 
 typedef struct philo_s {
-	int				id;
-	int				eat_lim;
-	pid_t			pid;
-	unsigned int	last_meal;
+	int					id;
+	int					eat_lim;
+	pid_t				pid;
+	unsigned int		last_meal;
+	struct philos_s		*philos;
 }	t_philo;
 
 typedef struct philos_s {
 	sem_t			*forks;
 	sem_t			*msg;
 	sem_t			*finish;
+	sem_t			*end;
 	t_philos_lim	*limits;
 	t_philo			*philo_list;
 	int				die_flag;

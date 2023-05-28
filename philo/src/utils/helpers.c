@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:08:41 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/21 02:55:07 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 23:54:19 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ unsigned int	print_msg(t_philos *philos, t_philo *philo,
 	}
 	pthread_mutex_lock(&philos->msg);
 	if (!is_dead(philos))
-		printf("%u %i %s\n", time, (philo->id + 1), msg);
+		printf("%u %i %s\n", (time + 1), (philo->id + 1), msg);
 	pthread_mutex_unlock(&philos->msg);
 	return (time);
 }
@@ -37,7 +37,7 @@ void	print_death_msg(t_philos *philos, t_philo *philo, unsigned int time)
 	pthread_mutex_lock(&philos->msg);
 	if (!is_dead(philos))
 	{
-		printf("%u %i %s\n", time, (philo->id + 1), MSG_DIE);
+		printf("%u %i %s\n", (time + 1), (philo->id + 1), MSG_DIE);
 		iterate_dead(philos);
 	}
 	pthread_mutex_unlock(&philos->msg);

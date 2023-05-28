@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:10 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:41:52 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	make_processes(t_philos *philos)
 		if (philos->philo_list[i].pid == 0)
 		{
 			if (i % 2)
-				usleep(philos->limits->time_to_eat * 1000);
+				ms_sleep(philos->limits->time_to_eat);
 			start_simulation(philos, &philos->philo_list[i]);
 			exit(0);
 		}
@@ -79,10 +79,12 @@ int	philos_controller(t_philos *philos)
 	sem_unlink(SEMAPHORE_NAME);
 	sem_unlink(MSG_SEMAPHORE);
 	sem_unlink(FINISH_SEMAPHORE);
+	sem_unlink(LAST_MEAL_SEMAPHORE);
 	philos->forks = sem_open(SEMAPHORE_NAME, O_CREAT, 0755,
 			philos->limits->ph_num);
 	philos->msg = sem_open(MSG_SEMAPHORE, O_CREAT, 0755, 1);
 	philos->finish = sem_open(FINISH_SEMAPHORE, O_CREAT, 0755, 1);
+	philos->end = sem_open(LAST_MEAL_SEMAPHORE, O_CREAT, 0755, 1);
 	get_cur_time();
 	make_processes(philos);
 	free_all_mem(philos);

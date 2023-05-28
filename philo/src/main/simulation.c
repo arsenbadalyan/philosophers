@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:08:46 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/21 03:16:06 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 14:02:32 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ void	philo_eat(t_philos *philos, t_philo *philo)
 
 void	one_philo_action(t_philos *philos, t_philo *philo)
 {
-	pthread_mutex_lock(&philos->msg);
 	print_msg(philos, philo, MSG_FORK, FLG_FORK);
 	ms_sleep(philos->limits->time_to_die);
-	pthread_mutex_unlock(&philos->msg);
+	print_death_msg(philos, philo, get_cur_time());
 }
 
 void	*start_simulation(void *arg)

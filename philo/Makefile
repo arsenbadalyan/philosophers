@@ -1,7 +1,7 @@
 # Main Variables
 NAME     = philo
 GCC      = clang
-CFLAGS   = -Wall -Wextra -Werror -g3 -fsanitize=thread
+CFLAGS   = -Wall -Wextra -Werror
 RM       = rm -rf
 OUTPUT   = ./$(NAME)
 LIBS     = -I./includes/

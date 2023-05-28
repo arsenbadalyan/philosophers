@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:10 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/21 03:08:34 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 14:26:16 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,27 @@ int	check_death(t_philos *philos, t_philo *philo)
 	return (status);
 }
 
+int	check_finish(t_philos *philos, int *philo_index)
+{
+	int	i;
+
+	i = -1;
+	while (++i < philos->limits->ph_num)
+	{
+		pthread_mutex_lock(&philos->finish);
+		if (philos->philo_list[i].already_eaten == -1
+			&& ++(*philo_index))
+		{
+			pthread_mutex_unlock(&philos->finish);
+			continue ;
+		}
+		pthread_mutex_unlock(&philos->finish);
+		if (check_death(philos, &philos->philo_list[i]))
+			return (1);
+	}
+	return (0);
+}
+
 int	global_check_death(t_philos *philos, int philo_index)
 {
 	int	i;
@@ -46,20 +67,8 @@ int	global_check_death(t_philos *philos, int philo_index)
 		return (0);
 	while (1 && philo_index < philos->limits->ph_num)
 	{
-		i = -1;
-		while (++i < philos->limits->ph_num)
-		{
-			pthread_mutex_lock(&philos->finish);
-			if (philos->philo_list[i].already_eaten == -1
-					&& ++philo_index)
-			{
-				pthread_mutex_unlock(&philos->finish);
-				continue;
-			}
-			pthread_mutex_unlock(&philos->finish);
-			if (check_death(philos, &philos->philo_list[i]))
-				return (0);
-		}
+		if (check_finish(philos, &philo_index))
+			return (0);
 	}
 	return (0);
 }

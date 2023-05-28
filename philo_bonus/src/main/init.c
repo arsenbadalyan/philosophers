@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:13 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/20 13:13:00 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 16:38:58 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ t_philo	*init_philo_list(t_philos *philos, int ph_num)
 	int		i;
 
 	i = 0;
-	(void)philos;
 	philo_list = (t_philo *)malloc(sizeof(t_philo) * ph_num);
 	if (!philo_list)
 		return (NULL);
@@ -46,6 +45,7 @@ t_philo	*init_philo_list(t_philos *philos, int ph_num)
 		philo_list[i].pid = 0;
 		philo_list[i].last_meal = 0;
 		philo_list[i].eat_lim = 0;
+		philo_list[i].philos = philos;
 		i++;
 	}
 	return (philo_list);

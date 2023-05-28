@@ -6,7 +6,7 @@
 /*   By: arsbadal <arsbadal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/13 15:09:26 by arsbadal          #+#    #+#             */
-/*   Updated: 2023/05/20 20:59:28 by arsbadal         ###   ########.fr       */
+/*   Updated: 2023/05/27 20:42:15 by arsbadal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	*free_all_mem(t_philos *philos)
 	sem_close(philos->forks);
 	sem_close(philos->msg);
 	sem_close(philos->finish);
+	sem_close(philos->end);
 	free_single((void *)&(philos->limits));
 	free_single((void *)&(philos->philo_list));
 	free_single((void *)&(philos));
