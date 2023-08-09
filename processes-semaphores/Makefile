@@ -1,5 +1,5 @@
 # Main Variables
-NAME     = philo
+NAME     = processes-semaphores
 GCC      = clang
 CFLAGS   = -Wall -Wextra -Werror
 RM       = rm -rf
@@ -30,11 +30,6 @@ BLUE   = \033[34m
 
 all: $(NAME)
 	@echo > /dev/null
-
-bonus: all
-
-run:
-	./philo 5 100 100 100
 
 $(NAME): $(LIB_DIR) Makefile $(OBJS)
 	@make WAIT_COMPILE_MSG
